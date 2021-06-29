@@ -16,7 +16,7 @@ const etagCode2 = Math.random().toString(16).slice(2,9)
 let count = 1
 app.get('/name', (req, res) => {
     count ++ 
-    
+    console.log(new Date().toISOString());
     /**
      * cache-control: 控制缓存机制
      * Cache-Control和Expires
@@ -60,7 +60,7 @@ app.get('/name', (req, res) => {
 
   
     res.json({
-        "name": "Jack Sam"
+        "name": "Jack Sssam "
     })
 })
 /**  */
@@ -70,10 +70,10 @@ const options = {
       etag: false,
       lastModified: false,
       setHeaders: (res, req)=> {
-        res.set('Cache-Control', 'max-age=1888')
+        res.set('Cache-Control', 'no-store')
       }
 }
-app.use('/public', express.static(path.join(__dirname, 'public'), {maxAge: 10,  etag: false, lastModified: false,}))
+app.use('/public', express.static(path.join(__dirname, 'public'), options))
 
 app.listen(PORT, () => {
     console.log('服务运行在端口', PORT);
